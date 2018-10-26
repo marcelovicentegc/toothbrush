@@ -1,6 +1,5 @@
 from django.contrib import admin
-from toothpaste.models import UniversityModel, DocumentModel
+from toothpaste.models import DocumentModel
 
-admin.site.register(UniversityModel)
 admin.site.register(DocumentModel)
 
