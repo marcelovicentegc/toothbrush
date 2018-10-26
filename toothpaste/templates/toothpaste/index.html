@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        {% load static %}
+        <title> Toothbrush | keep your teeth clean! </title>
+        <meta charset='utf8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='shortcut icon' type='image/png' href='/static/toothpaste/img/toothbrush.png' sizes='32x32'/>
+        <link rel='stylesheet' href="{% static 'toothpaste/css/main.css' %}" type='text/css'/>
+        <script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous'></script>
+    </head>
+    <script>
+        $(document).ready(function() {
+            $.fn.moveYourAss = function(url) {
+                setTimeout(function() {
+                    window.location.href=url},
+                200);
+            };
+
+            $.fn.interiorTransformation = function() {
+                toothPaste = $('#toothpaste');
+                toothPaste.css('animation-name', 'fadeOut');
+                toothPaste.css('animation-duration', '200ms');
+                toothPaste.css('animation-timing-function', 'ease-in-out');
+                toothPaste.css('animation-iteration-count', '1');
+                toothPaste.css('animation-fill-mode', 'forwards');
+                toothPaste.css('animation-play-state', 'running');
+            }
+        });
+
+        $(document).ready(function() {
+            var toothBrush = $('#toothbrush');
+            var about = $('#about');
+            
+            toothBrush.click(function() {
+                if (document.referrer != '/') {
+                    $.fn.interiorTransformation();
+                    $.fn.moveYourAss('/');
+                } else {
+
+                };
+            });
+
+            about.click(function() {
+                if (document.referrer != '/about/') {
+                    $.fn.interiorTransformation();
+                    $.fn.moveYourAss('/about/');
+                } else {
+
+                };
+            });
+        });
+    </script>
+    <body>
+        <nav>
+            <a id='toothbrush'>Toothbrush</a>
+            <a id='about'>About</a>
+        </nav>
+        {% block content %}
+        {% endblock %}
+    </body>
+</html>

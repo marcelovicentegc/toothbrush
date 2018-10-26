@@ -1,0 +1,25 @@
+{% extends "toothpaste/index.html" %}
+{% block content %}
+    <script>
+        $(document).ready(function(e) {
+            var upFileButton = $('#upfile-button');
+            var input = $('#id_document');
+            var form = $('form')
+
+            upFileButton.click(function() {
+                input.trigger('click');
+            });
+
+            input.change(function() {
+                form.submit();
+            });
+        });
+    </script>
+    <div id='toothpaste'>
+        <form action='/result/' method='post'>
+            {% csrf_token %}
+            {{ form }}
+            <a><img src='static/toothpaste/img/toothpaste.png' id='upfile-button'></a>
+        </form>
+    </div>
+{% endblock %}
