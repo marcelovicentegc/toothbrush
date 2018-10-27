@@ -2,40 +2,40 @@
 {% block content %}
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js'></script>
     <div id='toothpaste'>
-        <canvas id='result' width='400' height='400'></canvas>
+        <!-- <canvas id='result' width='400' height='400'></canvas> -->
     </div>
     <script>
-        var endpoint = '/api/chart/data/';
-        var freq = [];
-        var words = [];
+        // var endpoint = '/api/chart/data/';
+        // var freq = [];
+        // var words = [];
 
-        $.ajax({
-            method: 'GET',
-            url: endpoint,
-            success: function(data) {
-                words = data.words;
-                freq = data.freq;
-                plotChart();
-            },
+        // $.ajax({
+        //     method: 'GET',
+        //     url: endpoint,
+        //     success: function(data) {
+        //         words = data.words;
+        //         freq = data.freq;
+        //         plotChart();
+        //     },
 
-            error: function(error_data) {
-                console.log('error');
-                console.log(error_data);
-            } 
-        });
+        //     error: function(error_data) {
+        //         console.log('error');
+        //         console.log(error_data);
+        //     } 
+        // });
 
-        function plotChart() {
-            var ctx = document.getElementById('result').getContext('2d');
-            var result = new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: words,
-                    datasets: [{
-                        label: 'Frequency',
-                        data: freq,
-                    }]
-                }
-            })
-        };
+        // function plotChart() {
+        //     var ctx = document.getElementById('result').getContext('2d');
+        //     var result = new Chart(ctx, {
+        //         type: 'line',
+        //         data: {
+        //             labels: words,
+        //             datasets: [{
+        //                 label: 'Frequency',
+        //                 data: freq,
+        //             }]
+        //         }
+        //     })
+        // };
     </script>
 {% endblock %}

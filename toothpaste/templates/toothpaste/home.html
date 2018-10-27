@@ -16,7 +16,7 @@
         });
     </script>
     <div id='toothpaste'>
-        <form action='/result/' method='post'>
+        <form method='POST' enctype='multipart/form-data'>
             {% csrf_token %}
             {{ form }}
             <a><img src='static/toothpaste/img/toothpaste.png' id='upfile-button'></a>

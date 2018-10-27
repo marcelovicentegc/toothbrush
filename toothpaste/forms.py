@@ -6,7 +6,7 @@ from toothpaste.models import DocumentModel
 
 
 class DocumentForm(ModelForm):
-    document = forms.FileField(label='')
+    document = forms.FileField(max_length=255, required=True, label='')
 
     class Meta:
         model = DocumentModel

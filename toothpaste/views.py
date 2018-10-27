@@ -1,6 +1,6 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
-from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect, Http404
+from django.shortcuts import render, redirect
+from django.views.generic import TemplateView, FormView
 from toothpaste.forms import DocumentForm
 from toothpaste.models import DocumentModel
 from toothpaste.toilet_sink.soap import ToiletSink
@@ -8,22 +8,36 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-class IndexView(TemplateView, ToiletSink):
+
+
+
+class IndexView(FormView, ToiletSink):
     template_name = 'toothpaste/home.html'
-    success_url = 'toothpaste/result.html'
+    success_url = '/result/'
+    form_class = DocumentForm
 
     def get(self, request):
         if request.method == 'POST':
-            form = DocumentForm(request.POST, request.FILES)
+            form = self.form_class(request.POST or None, request.FILES or None)
             if form.is_valid():
-                form_prep = ToiletSink.preprocess(self, form)
-                result = ToiletSink.frequency_distribution(self, form_prep, 5)
-                result.save()
-                return HttpResponseRedirect(self.success_url)
+                form.save()
+                # f = " ".join(str(i) for i in file.document)
+                # f = ToiletSink.preprocess(self, f)
+                # f = ToiletSink.frequency_distribution(self, f, 20)
+                # words = [i[0] for i in f]
+                # freqs = [i[1] for i in f]
+                # f_dict = {
+                #           'word': words,
+                #           'freq': freqs
+                #           }
+                # f = ToiletSink.jasonfy(self, f_dict)
+
+                # form = form.cleaned_data['file']
+                # return HttpResponseRedirect(self.success_url)
+                return redirect(self.success_url)
         else:
             form = DocumentForm()
-            return render(request, self.template_name, {'form': form})
-
+        return render(request, self.template_name, {'form': DocumentForm()})
 
 class AboutView(TemplateView):
     template_name = 'toothpaste/about.html'
@@ -32,12 +46,21 @@ class AboutView(TemplateView):
 class ResultView(TemplateView):
     template_name = 'toothpaste/result.html'
 
-    def get(self, request, *args, **kwargs):
-        return render(request, self.template_name, {})
+    # def get(self, request, *args, **kwargs):
+    #     try:
+    #         obj = DocumentModel.objects.get(pk=1)
+    #     except DocumentModel.DoesNotExist:
+    #         raise Http404
+
+    # def get(self, request, *args, **kwargs):
+    #     if request.method == 'GET':
+    #         return render(request, self.template_name, {})
+    #     else:
+    #         return render(request, self.template_name, {})
     
-    #def get_chart_data(self, request):
-     #   document = DocumentModel.objects.filter()
-      #  return render_to_response(self.template_name, {'document': document})
+    # def get_chart_data(self, request):
+    #     document = DocumentModel.objects.filter()
+    #     return render_to_response(self.template_name, {'document': document})
 
 class ChartData(APIView):
     authentication_classes = []
