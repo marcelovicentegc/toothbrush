@@ -22,7 +22,9 @@ class IndexView(FormView, ToiletSink):
             form = self.form_class(request.POST, request.FILES)
 
             if form.is_valid():
-                document = form.cleaned_data['document']
+                form.clean()
+                form.save()
+                # document = form.cleaned_data['document']
                 # document.save(commit=True) # THIS RAISES AttributeError: 'InMemoryUploadedFile' object has no attribute 'save'
                 # document is a InMemoryUploadedFile
                 # document = document.read()
