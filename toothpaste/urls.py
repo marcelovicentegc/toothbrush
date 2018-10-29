@@ -9,3 +9,5 @@ urlpatterns = [
     re_path(r'^result/$', ResultView.as_view()),
     re_path(r'^about/$', AboutView.as_view()),
 ]
+
+# (?P<pk>\d+)/

@@ -122,6 +122,10 @@ body {
         input {
             display: none;
         }
+
+        ul.errorlist li {
+            list-style: none;
+        }
     }
 }
 

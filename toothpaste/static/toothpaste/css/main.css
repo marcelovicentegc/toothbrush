@@ -152,6 +152,10 @@ body #toothpaste input {
   display: none;
 }
 
+body #toothpaste ul.errorlist li {
+  list-style: none;
+}
+
 ::-moz-selection {
   background-color: #b0b0b0;
 }
