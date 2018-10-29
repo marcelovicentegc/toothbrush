@@ -9,8 +9,5 @@ class DocumentModel(models.Model):
     document = models.FileField(upload_to='documents', null=True, blank=True, max_length=255, validators=[validate_file_type])
     date = models.DateTimeField(default=timezone.now)
 
-    def save(self, *args, **kwargs):
-        super().save(*args, **kwargs)
-
     class Meta:
         verbose_name_plural: 'documents'
