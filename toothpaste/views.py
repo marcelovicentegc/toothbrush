@@ -10,22 +10,22 @@ from rest_framework.response import Response
 
 
 
-
-class IndexView(FormView, ToiletSink):
+class IndexView(FormView):
     template_name = 'toothpaste/home.html'
     success_url = '/result/'
     form_class = DocumentForm
 
-    def create_document(self, request):
+    def upload_file(self, request):
         if request.method == 'POST':
-            form = self.form_class(request.POST, request.FILES)
-
+            form = DocumentForm(request.POST, request.FILES)
             if form.is_valid():
-                form.save(commit=True)
+                document = form.cleaned_data['document']
+                document.save(commit=True)
+                # document = DocumentModel(file_field=request.FILES['document'])
+                # document.save()
                 return redirect(self.success_url)
-            else: 
-                form = DocumentForm()
-    
+        else: 
+            form = DocumentForm()
         return render(request, self.template_name, {'form': form})
 
 
@@ -40,6 +40,13 @@ class AboutView(TemplateView):
 
 class ResultView(TemplateView):
     template_name = 'toothpaste/result.html'
+    # model = DocumentModel.objects.all()
+    # queryset = model.order_by('-date')[:1]
+
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #     context['document'] = self.queryset
+    #     return context
 
 
 

@@ -16,7 +16,7 @@
         });
     </script>
     <div id='toothpaste'>
-        <form method='POST' enctype='multipart/form-data' action='/' name='upfile'>
+        <form enctype='multipart/form-data' method='post'>
             {% csrf_token %}
             {{ form.non_field_errors }}
             {{ form }}

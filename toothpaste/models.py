@@ -1,12 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from .validators import validate_file_type
-
+from django.core.files.storage import FileSystemStorage
 
 
 
 class DocumentModel(models.Model):
-    document = models.FileField(upload_to='documents', null=True, blank=True, max_length=255, validators=[validate_file_type])
+    document = models.FileField(upload_to='documents', null=False, blank=False, default='default', validators=[validate_file_type], max_length=255)
     date = models.DateTimeField(default=timezone.now)
 
     class Meta:
