@@ -1,4 +1,3 @@
-from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, FormView, DetailView
 from toothpaste.forms import DocumentForm
@@ -15,14 +14,16 @@ class IndexView(FormView):
     success_url = '/result/'
     form_class = DocumentForm
 
+    def form_valid(self, form):
+        form.save()
+        return super(IndexView, self).form_valid(form)
+
     def upload_file(self, request):
         if request.method == 'POST':
             form = DocumentForm(request.POST, request.FILES)
             if form.is_valid():
                 document = form.cleaned_data['document']
                 document.save(commit=True)
-                # document = DocumentModel(file_field=request.FILES['document'])
-                # document.save()
                 return redirect(self.success_url)
         else: 
             form = DocumentForm()
