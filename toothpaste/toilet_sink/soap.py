@@ -2,10 +2,8 @@ import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
 import matplotlib.pyplot as plt 
-from matplotlib import style
 import json
 
-style.use('ggplot')
 
 class ToiletSink:
     stp = stopwords.words('portuguese')

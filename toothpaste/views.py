@@ -23,6 +23,7 @@ class IndexView(FormView):
             form = DocumentForm(request.POST, request.FILES)
             if form.is_valid():
                 document = form.cleaned_data['document']
+                # Process document
                 document.save(commit=True)
                 return redirect(self.success_url)
         else: 
