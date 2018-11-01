@@ -1,5 +1,6 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, FormView, DetailView
+from django.views.generic.edit import CreateView
 from toothpaste.forms import DocumentForm
 from toothpaste.models import DocumentModel
 from toothpaste.toilet_sink.soap import ToiletSink
@@ -11,11 +12,14 @@ import os
 
 
 
-class IndexView(FormView, ToiletSink):
+class IndexView(FormView, CreateView, ToiletSink):
     template_name = 'toothpaste/home.html'
-    success_url = '/result/'
     form_class = DocumentForm
     ToiletSink = ToiletSink()
+
+    def get_success_url(self):
+        document = self.object
+        return reverse('result_detail', args=[document.id])
 
     def form_valid(self, form):
         form.save()
@@ -34,7 +38,7 @@ class IndexView(FormView, ToiletSink):
                 #     f.write(head)
                 # f.save(commit=True)
                 document.save(commit=True)
-                return redirect(self.success_url)
+                return redirect(self.get_success_url())
         else: 
             form = DocumentForm()
         return render(request, self.template_name, {'form': form})
@@ -49,9 +53,9 @@ class AboutView(TemplateView):
 
 
 # Temporary view
-class ResultView(TemplateView):
+class ResultView(DetailView):
     template_name = 'toothpaste/result.html'
-    # model = DocumentModel.objects.all()
+    model = DocumentModel
     # queryset = model.order_by('-date')[:1]
 
     # def get_context_data(self, **kwargs):
