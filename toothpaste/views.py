@@ -6,13 +6,16 @@ from toothpaste.toilet_sink.soap import ToiletSink
 from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.conf import settings
+import os
 
 
 
-class IndexView(FormView):
+class IndexView(FormView, ToiletSink):
     template_name = 'toothpaste/home.html'
     success_url = '/result/'
     form_class = DocumentForm
+    ToiletSink = ToiletSink()
 
     def form_valid(self, form):
         form.save()
@@ -23,7 +26,13 @@ class IndexView(FormView):
             form = DocumentForm(request.POST, request.FILES)
             if form.is_valid():
                 document = form.cleaned_data['document']
-                # Process document
+                # Context manager
+                # # path = os.path.join(settings.MEDIA_ROOT, 'documents/')
+                # with open('tabula_rasa.txt', 'w') as f:
+                #     body = self.ToiletSink.text_extractor(document)
+                #     head = self.ToiletSink.final_cut(body)
+                #     f.write(head)
+                # f.save(commit=True)
                 document.save(commit=True)
                 return redirect(self.success_url)
         else: 
@@ -39,7 +48,7 @@ class AboutView(TemplateView):
 
 
 
-
+# Temporary view
 class ResultView(TemplateView):
     template_name = 'toothpaste/result.html'
     # model = DocumentModel.objects.all()

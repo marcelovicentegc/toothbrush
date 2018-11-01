@@ -1,3 +1,4 @@
+import os
 import io
 from pdfminer.converter import TextConverter
 from pdfminer.pdfinterp import PDFPageInterpreter, PDFResourceManager
@@ -11,6 +12,7 @@ import magic
 import langid
 from xml.etree.cElementTree import XML
 import zipfile
+from django.conf import settings
 
 
 class ToiletSink:
@@ -89,8 +91,8 @@ class ToiletSink:
     # The last piece of pie
     def final_cut(self, text):
         # f = " ".join(str(i) for i in text) # This is used for handling txt files as objects as txt files
-        f = text
-        f = self.preprocess(f)
+        # f = text
+        f = self.preprocess(text)
         f = self.frequency_distribution(f, 20)
         words = [i[0] for i in f]
         freqs = [i[1] for i in f]    
@@ -140,6 +142,9 @@ class ToiletSink:
             return self.docx_text_extractor(text)
         else:
             pass
+
+
+    
 
 
     
