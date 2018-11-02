@@ -110,21 +110,32 @@ body img {
   }
 }
 
+body #loading {
+  position: absolute;
+  background-image: url("../img/toothbrush.gif");
+  background-repeat: no-repeat;
+  height: 120px;
+  width: 120px;
+  top: 45%;
+  left: 45%;
+  margin-right: -50%;
+}
+
+@media only screen and (max-width: 767px) {
+  body #loading {
+    height: 80px;
+    width: 80px;
+  }
+}
+
+@media only screen and (max-width: 479px) {
+  body #loading {
+    height: 60px;
+    width: 60px;
+  }
+}
+
 body #toothpaste {
-  -webkit-animation-name: fadeIn;
-          animation-name: fadeIn;
-  -webkit-animation-duration: 200ms;
-          animation-duration: 200ms;
-  -webkit-animation-timing-function: ease-in-out;
-          animation-timing-function: ease-in-out;
-  -webkit-animation-iteration-count: 1;
-          animation-iteration-count: 1;
-  -webkit-animation-direction: alternate;
-          animation-direction: alternate;
-  -webkit-animation-fill-mode: forwards;
-          animation-fill-mode: forwards;
-  -webkit-animation-play-state: running;
-          animation-play-state: running;
   height: 85vh;
   padding: 5%;
 }
