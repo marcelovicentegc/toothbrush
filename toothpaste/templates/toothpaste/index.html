@@ -17,14 +17,13 @@
                 200);
             };
 
-            $.fn.interiorTransformation = function() {
-                toothPaste = $('#toothpaste');
-                toothPaste.css('animation-name', 'fadeOut');
-                toothPaste.css('animation-duration', '200ms');
-                toothPaste.css('animation-timing-function', 'ease-in-out');
-                toothPaste.css('animation-iteration-count', '1');
-                toothPaste.css('animation-fill-mode', 'forwards');
-                toothPaste.css('animation-play-state', 'running');
+            $.fn.interiorTransformation = function(object) {
+                object.css('animation-name', 'fadeOut');
+                object.css('animation-duration', '200ms');
+                object.css('animation-timing-function', 'ease-in-out');
+                object.css('animation-iteration-count', '1');
+                object.css('animation-fill-mode', 'forwards');
+                object.css('animation-play-state', 'running');
             }
         });
 
@@ -34,7 +33,7 @@
             
             toothBrush.click(function() {
                 if (document.referrer != '/') {
-                    $.fn.interiorTransformation();
+                    $.fn.interiorTransformation(toothBrush);
                     $.fn.moveYourAss('/');
                 } else {
 
@@ -43,7 +42,7 @@
 
             about.click(function() {
                 if (document.referrer != '/about/') {
-                    $.fn.interiorTransformation();
+                    $.fn.interiorTransformation(toothBrush);
                     $.fn.moveYourAss('/about/');
                 } else {
 
