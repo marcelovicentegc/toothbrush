@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render, redirect, reverse
 from django.views.generic import TemplateView, FormView, DetailView
 from django.views.generic.edit import CreateView
@@ -8,18 +9,18 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
-import os
 
 
 
-class IndexView(FormView, CreateView, ToiletSink):
+
+class IndexView(FormView, CreateView):
     template_name = 'toothpaste/home.html'
     form_class = DocumentForm
     ToiletSink = ToiletSink()
 
     def get_success_url(self):
         document = self.object
-        return reverse('result_detail', args=[document.id])
+        return reverse('result-detail', args=[document.id])
 
     def form_valid(self, form):
         form.save()
@@ -30,13 +31,6 @@ class IndexView(FormView, CreateView, ToiletSink):
             form = DocumentForm(request.POST, request.FILES)
             if form.is_valid():
                 document = form.cleaned_data['document']
-                # Context manager
-                # # path = os.path.join(settings.MEDIA_ROOT, 'documents/')
-                # with open('tabula_rasa.txt', 'w') as f:
-                #     body = self.ToiletSink.text_extractor(document)
-                #     head = self.ToiletSink.final_cut(body)
-                #     f.write(head)
-                # f.save(commit=True)
                 document.save(commit=True)
                 return redirect(self.get_success_url())
         else: 
@@ -53,10 +47,50 @@ class AboutView(TemplateView):
 
 
 # Temporary view
-class ResultView(DetailView):
+class ResultView(DetailView, ToiletSink):
     template_name = 'toothpaste/result.html'
     model = DocumentModel
-    # queryset = model.order_by('-date')[:1]
+    ToiletSink = ToiletSink()
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Process file!
+        # e = []
+        # for i in self.object.document:
+        #     e.append(i)
+        # e = str(e)
+        document = self.object.document.path
+        f = self.ToiletSink.text_extractor(document)
+        f = self.ToiletSink.final_cut(f)
+        context['words'] = f[0]
+        context['freqs'] = f[1]
+        context['id'] = self.object.id
+        data = {
+            'words': context['words'],
+            'freq': context['freqs'],
+            'id': context['id'],
+        }
+        return data
+
+
+
+
+    # document = model.id
+    # def surgery(file):
+    #   file.open('r')
+    #   for i in file:
+    #         print(i)
+    #   file.close()
+    # for i in document.document:
+    #     with open(os.path.join(settings.MEDIA_ROOT, 'documents/tabula_rasa.txt'), 'w') as f:
+    #         body = self.ToiletSink.text_extractor(i)
+    #         head = self.ToiletSink.final_cut(body)
+    #         f.write(head)
+    # # path = os.path.join(settings.MEDIA_ROOT, 'documents/')
+    # with open('tabula_rasa.txt', 'w') as f:
+    #     body = self.ToiletSink.text_extractor(document)
+    #     head = self.ToiletSink.final_cut(body)
+    #     f.write(head)
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)

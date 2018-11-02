@@ -88,21 +88,6 @@ class ToiletSink:
         js_on = json.dumps(python_object)
         return js_on
 
-    # The last piece of pie
-    def final_cut(self, text):
-        # f = " ".join(str(i) for i in text) # This is used for handling txt files as objects as txt files
-        # f = text
-        f = self.preprocess(text)
-        f = self.frequency_distribution(f, 20)
-        words = [i[0] for i in f]
-        freqs = [i[1] for i in f]    
-        f_dict = {
-            'word': words,
-            'freq': freqs
-        }
-        f = self.jasonfy(f_dict)
-        return f
-
     # Text extraction functions
     def pdf_text_extractor(self, text):
         economist = PDFResourceManager()
@@ -140,8 +125,28 @@ class ToiletSink:
             return self.pdf_text_extractor(text)
         elif file_type == 'application/msword' or 'application/vnd.openxmlformats-officedocument.wordprocessingml.document':
             return self.docx_text_extractor(text)
+        elif file_type == 'text/plain':
+            return text
         else:
             pass
+    
+    # The last piece of pie
+    def final_cut(self, text):
+        # f = " ".join(str(i) for i in text) # This is used for handling txt files as objects as txt files
+        # f = text
+        f = self.preprocess(text)
+        f = self.frequency_distribution(f, 20)
+        words = [i[0] for i in f]
+        freqs = [i[1] for i in f]    
+        f_words = {
+            'word': words,
+        }
+        f_freqs = {
+            'freq': freqs
+        }
+        fw = self.jasonfy(f_words)
+        ff = self.jasonfy(f_freqs)
+        return fw, ff
 
 
     
