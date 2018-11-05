@@ -9,6 +9,7 @@ from django.http import JsonResponse
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.conf import settings
+from datetime import datetime, timedelta
 
 
 
@@ -44,10 +45,14 @@ class AboutView(TemplateView):
 
 
 
-# Temporary view
+
 class ResultView(DetailView, ToiletSink):
     template_name = 'toothpaste/result.html'
     model = DocumentModel
+    queryset = model.objects.all()
+
+    def get_queryset(self, **kwargs):
+        return self.queryset.filter(date__gte=datetime.now()-timedelta(days=1))
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

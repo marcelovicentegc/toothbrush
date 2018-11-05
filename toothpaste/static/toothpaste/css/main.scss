@@ -115,19 +115,13 @@ body {
     }
 
     #toothpaste {
-        // animation-name: fadeIn;
-        // animation-duration: 200ms;
-        // animation-timing-function: ease-in-out;
-        // animation-iteration-count: 1;
-        // animation-direction: alternate;
-        // animation-fill-mode: forwards;
-        // animation-play-state: running;
         height: 85vh;
-        padding: 5%;
+        padding: 1%;
 
         a img:hover {
-            height: 125px;
-            width: 125px;
+            height: 130px;
+            width: 130px;
+            transform: rotate(-8deg);
 
             @include medDevice() {
                 height: 85px;

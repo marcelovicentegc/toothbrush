@@ -137,12 +137,14 @@ body #loading {
 
 body #toothpaste {
   height: 85vh;
-  padding: 5%;
+  padding: 1%;
 }
 
 body #toothpaste a img:hover {
-  height: 125px;
-  width: 125px;
+  height: 130px;
+  width: 130px;
+  -webkit-transform: rotate(-8deg);
+          transform: rotate(-8deg);
 }
 
 @media only screen and (max-width: 767px) {

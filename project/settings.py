@@ -30,6 +30,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# The session data will be stored using Django's tool for cryptographic 
+# (https://docs.djangoproject.com/en/2.1/topics/signing/)
+# signing and the SECRET_KEY setting.
+# SESSIONS_ENGINE = 'django.contrib.sessions.backends.db'
+# SESSION_COOKIE_HTTPONLY = True
+# SESSION_COOKIE_SECURE = True
+# CSRF_COOKIE_SECURE = True
+# SESSION_SAVE_EVERY_REQUEST = True
+
 ROOT_URLCONF = 'project.urls'
 
 TEMPLATES = [
