@@ -1,5 +1,5 @@
 import os
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.views.generic import TemplateView, FormView, DetailView
 from django.views.generic.edit import CreateView
 from toothpaste.forms import DocumentForm
@@ -21,7 +21,7 @@ class IndexView(FormView, CreateView):
 
     def get_success_url(self):
         document = self.object
-        return reverse('result-detail', args=[document.id])
+        return reverse('result-detail', args=[document.uid,])
 
     def form_valid(self, form):
         form.save()
@@ -37,6 +37,7 @@ class IndexView(FormView, CreateView):
         else: 
             form = DocumentForm()
         return render(request, self.template_name, {'form': form})
+
 
 
 
@@ -56,7 +57,7 @@ class ResultView(DetailView, ToiletSink):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['id'] = self.object.id
+        context['uid'] = self.object.uid
         return context
 
 
