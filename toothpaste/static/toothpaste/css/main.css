@@ -136,7 +136,7 @@ body #loading {
 }
 
 body #toothpaste {
-  height: 85vh;
+  max-height: 85vh;
   padding: 1%;
 }
 
@@ -171,6 +171,11 @@ body #toothpaste label {
 
 body #toothpaste ul.errorlist li {
   list-style: none;
+}
+
+body #result {
+  height: 85vh !important;
+  width: 98vw !important;
 }
 
 ::-moz-selection {

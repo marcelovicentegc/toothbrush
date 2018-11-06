@@ -6,7 +6,6 @@ from pdfminer.pdfpage import PDFPage
 import nltk
 from nltk.tokenize import word_tokenize
 from nltk.corpus import stopwords
-import matplotlib.pyplot as plt 
 import json
 import magic
 import langid

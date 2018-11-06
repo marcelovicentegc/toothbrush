@@ -16,15 +16,6 @@
                     window.location.href=url},
                 200);
             };
-
-            $.fn.interiorTransformation = function(object) {
-                object.css('animation-name', 'fadeOut');
-                object.css('animation-duration', '200ms');
-                object.css('animation-timing-function', 'ease-in-out');
-                object.css('animation-iteration-count', '1');
-                object.css('animation-fill-mode', 'forwards');
-                object.css('animation-play-state', 'running');
-            }
         });
 
         $(document).ready(function() {
@@ -33,10 +24,8 @@
             var about = $('#about');
             var upFileButton = $('#upfile-button');
             
-            // Here
             toothBrush.click(function() {
                 if (document.referrer != '/') {
-                    $.fn.interiorTransformation(toothPaste);
                     $.fn.moveYourAss('/');
                 } else {
 
@@ -45,10 +34,9 @@
 
             about.click(function() {
                 if (document.referrer != '/about/') {
-                    $.fn.interiorTransformation(toothPaste);
                     $.fn.moveYourAss('/about/');
                 } else {
-
+                    
                 };
             });
         });

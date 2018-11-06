@@ -3,11 +3,12 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js'></script>
     <div id='toothpaste'>
         <div id='loading'></div>
-        <canvas id='result' width='400' height='400'></canvas>
+        <canvas id='result'></canvas>
     </div>
-    <script>
+    <script type='text/javascript'>
         var loading = $('#loading'); 
         var endpoint = '/api/chart/data/{{id}}';
+        var color = Chart.helpers.color;
         var freq = [];
         var words = [];
 
@@ -47,19 +48,31 @@
         function plotChart() {
             var ctx = document.getElementById('result').getContext('2d');
             var result = new Chart(ctx, {
-                type: 'line',
+                type: 'bar',
                 data: {
                     labels: words,
                     datasets: [{
                         label: 'Frequency',
                         data: freq,
+                        // backgroundColor: [],
+                        // borderColor: window.chartColors.orange,
+                        // borderWidth: 1,
                     }]
                 },
                 options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
                     legend: {
                         labels: {
                             fontFamily: "'Source Code Pro', 'monospace'"
                         }
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
                     }
                 }
             })

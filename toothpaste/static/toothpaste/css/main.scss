@@ -115,7 +115,7 @@ body {
     }
 
     #toothpaste {
-        height: 85vh;
+        max-height: 85vh;
         padding: 1%;
 
         a img:hover {
@@ -145,6 +145,11 @@ body {
         ul.errorlist li {
             list-style: none;
         }
+    }
+
+    #result {
+        height: 85vh !important;
+        width: 98vw !important;
     }
 }
 
