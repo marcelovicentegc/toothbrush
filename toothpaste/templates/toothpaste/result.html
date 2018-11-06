@@ -8,14 +8,8 @@
     <script type='text/javascript'>
         var loading = $('#loading'); 
         var endpoint = '/api/chart/data/{{id}}';
-        var color = Chart.helpers.color;
         var freq = [];
         var words = [];
-
-        window.chartColors = {
-            grey: 'rgba(32, 32, 32, 0.7)',
-            black: 'rgba(0, 0, 0, 0.7)',
-        };
 
         $(document).ready(function() {
             $.fn.goodBye = function(object) {
@@ -49,6 +43,11 @@
                 console.log(error_data);
             }
         });
+        
+        window.chartColors = {
+            grey: 'rgba(32, 32, 32, 0.7)',
+            black: 'rgba(0, 0, 0, 0.7)',
+        };
 
         function plotChart() {
             var ctx = document.getElementById('result').getContext('2d');
