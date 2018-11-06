@@ -12,6 +12,13 @@
         var freq = [];
         var words = [];
 
+        window.chartColors = {
+            grey: 'rgba(32, 32, 32, 0.7)',
+            black: 'rgba(0, 0, 0, 0.7)',
+            greyHover: 'rgba(32, 32, 32, 0.9)',
+            blackHover: 'rgba(0, 0, 0, 0.9)',
+        };
+
         $(document).ready(function() {
             $.fn.goodBye = function(object) {
                 object.css('animation-name', 'fadeOut');
@@ -54,9 +61,11 @@
                     datasets: [{
                         label: 'Frequency',
                         data: freq,
-                        // backgroundColor: [],
-                        // borderColor: window.chartColors.orange,
-                        // borderWidth: 1,
+                        backgroundColor: window.chartColors.grey,
+                        hoverBackGroundColor: window.chartColors.greyHover,
+                        borderColor: window.chartColors.black,
+                        hoverBorderColor: window.chartColors.blackHover,
+                        borderWidth: 1,
                     }]
                 },
                 options: {
@@ -64,12 +73,22 @@
                     maintainAspectRatio: false,
                     legend: {
                         labels: {
-                            fontFamily: "'Source Code Pro', 'monospace'"
+                            fontFamily: "'Source Code Pro', 'monospace'",
+                            fontColor: 'black',
                         }
                     },
                     scales: {
                         yAxes: [{
                             ticks: {
+                                fontColor: 'black',
+                                fontSize: 14,
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontColor: 'black',
+                                fontSize: 16,
                                 beginAtZero: true
                             }
                         }]
