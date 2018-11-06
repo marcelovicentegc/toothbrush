@@ -15,8 +15,6 @@
         window.chartColors = {
             grey: 'rgba(32, 32, 32, 0.7)',
             black: 'rgba(0, 0, 0, 0.7)',
-            greyHover: 'rgba(32, 32, 32, 0.9)',
-            blackHover: 'rgba(0, 0, 0, 0.9)',
         };
 
         $(document).ready(function() {
@@ -62,9 +60,7 @@
                         label: 'Frequency',
                         data: freq,
                         backgroundColor: window.chartColors.grey,
-                        hoverBackGroundColor: window.chartColors.greyHover,
                         borderColor: window.chartColors.black,
-                        hoverBorderColor: window.chartColors.blackHover,
                         borderWidth: 1,
                     }]
                 },
@@ -80,15 +76,15 @@
                     scales: {
                         yAxes: [{
                             ticks: {
+                                fontFamily: "'Source Code Pro', 'monospace'",
                                 fontColor: 'black',
-                                fontSize: 14,
                                 beginAtZero: true
                             }
                         }],
                         xAxes: [{
                             ticks: {
+                                fontFamily: "'Source Code Pro', 'monospace'",
                                 fontColor: 'black',
-                                fontSize: 16,
                                 beginAtZero: true
                             }
                         }]
