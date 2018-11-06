@@ -8,9 +8,9 @@ urlpatterns = [
     re_path(r'^', include('toothpaste.urls')),
 ]
 
-if settings.DEBUG:
+if settings.dev.DEBUG:
     urlpatterns += [
         re_path(r'^media/(?P<path>.*)$', serve, {
-            'document_root': settings.MEDIA_ROOT,
+            'document_root': settings.dev.MEDIA_ROOT,
         }),
     ]

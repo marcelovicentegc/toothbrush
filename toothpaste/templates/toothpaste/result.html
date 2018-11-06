@@ -50,6 +50,9 @@
 
         function plotChart() {
             var ctx = document.getElementById('result').getContext('2d');
+            var gradient = ctx.createLinearGradient(0, 0, 0, 500);
+            gradient.addColorStop(0, 'rgba(43, 151, 198, .8)');
+            gradient.addColorStop(1, 'rgba(255, 255, 255, .8)');
             var result = new Chart(ctx, {
                 type: 'line',
                 data: {
@@ -57,7 +60,7 @@
                     datasets: [{
                         label: 'Frequency',
                         data: freq,
-                        backgroundColor: window.chartColors.toothpastePaste,
+                        backgroundColor: gradient,
                         borderColor: window.chartColors.toothpastePasteGrains,
                         borderWidth: 1,
                     }]

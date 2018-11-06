@@ -86,8 +86,8 @@ body a:hover {
 }
 
 body img {
-  height: 120px;
-  width: 120px;
+  height: 100px;
+  width: 100px;
   position: absolute;
   top: 45%;
   left: 45%;
@@ -161,6 +161,11 @@ body #toothpaste a img:hover {
   }
 }
 
+body #toothpaste #about {
+  padding: 10%;
+  text-align: justify;
+}
+
 body #toothpaste input {
   display: none;
 }
@@ -179,10 +184,10 @@ body #result {
 }
 
 ::-moz-selection {
-  background-color: #b0b0b0;
+  background-color: rgba(231, 76, 60, 0.5);
 }
 
 ::selection {
-  background-color: #b0b0b0;
+  background-color: rgba(231, 76, 60, 0.5);
 }
 /*# sourceMappingURL=main.css.map */

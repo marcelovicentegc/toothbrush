@@ -7,8 +7,6 @@ SECRET_KEY = os.environ.get('DJANGO_TOOTHBRUSH_SECRET_KEY')
 
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1']
-
 INSTALLED_APPS = [
     'toothpaste',
     'rest_framework',
