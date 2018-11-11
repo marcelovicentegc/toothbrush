@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        {% load static %}
+        <title> 403fourhundredthree </title>
+        <meta charset='utf8'>
+        <meta name='viewport' content='width=device-width, initial-scale=1'>
+        <link rel='shortcut icon' type='image/png' href='/static/toothpaste/img/floss.png' sizes='32x32'/>
+        <link rel='stylesheet' href="{% static 'toothpaste/css/main.css' %}" type='text/css'/>
+        <script src='https://code.jquery.com/jquery-3.3.1.min.js' integrity='sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=' crossorigin='anonymous'></script>
+    </head>
+    <script>
+            $(document).ready(function() {
+                $.fn.moveYourAss = function(url) {
+                    setTimeout(function() {
+                        window.location.href=url},
+                    200);
+                };
+            });
+    
+            $(document).ready(function() {
+                var toothBrush = $('#toothbrush');
+                var toothPaste = $('#toothpaste');
+                var about = $('#about');
+                var upFileButton = $('#upfile-button');
+                
+                toothBrush.click(function() {
+                    if (document.referrer != '/') {
+                        $.fn.moveYourAss('/');
+                    } else {
+    
+                    };
+                });
+    
+                about.click(function() {
+                    if (document.referrer != '/about/') {
+                        $.fn.moveYourAss('/about/');
+                    } else {
+                        
+                    };
+                });
+            });
+    </script>
+    <body>
+        <nav>
+            <a id='toothbrush'>Toothbrush</a>
+            <a id='about'>About</a>
+        </nav>
+        <div id='toothpaste'>
+            <p>403fourhundredthree</p>
+        </div>
+    </body>
+</html>
