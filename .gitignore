@@ -1,7 +1,10 @@
+# Development stuff
 db.sqlite3
 migrations
 __pycache__
 *.pyc
+*.scss
+*.css.map
 media
 prod.py
 analytics.txt
