@@ -1,20 +1,7 @@
 {% extends "toothpaste/index.html" %}
 {% block content %}
-    <script>
-        $(document).ready(function(e) {
-            var upFileButton = $('#upfile-button');
-            var input = $('#id_document');
-            var form = $('form')
-
-            upFileButton.click(function() {
-                input.trigger('click');
-            });
-
-            input.change(function() {
-                form.submit();
-            });
-        });
-    </script>
+    {% load static %}
+    <script src="{% static 'toothpaste/js/formInput.js' %}"></script>
     <div id='toothpaste'>
         <form enctype='multipart/form-data' method='post'>
             {% csrf_token %}

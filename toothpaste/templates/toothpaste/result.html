@@ -1,11 +1,12 @@
 {% extends "toothpaste/index.html" %}
 {% block content %}
+    {% load static %}
     <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js'></script>
     <div id='toothpaste'>
         <div id='loading'></div>
         <canvas id='result'></canvas>
     </div>
-    <script type='text/javascript'>
+    <script>
         var loading = $('#loading'); 
         var endpoint = '/api/chart/data/{{uid}}';
         var freq = [];
@@ -14,21 +15,21 @@
         $(document).ready(function() {
             $.fn.goodBye = function(object) {
                 object.css('animation-name', 'fadeOut');
-	        	object.css('animation-duration', '200ms');
-    	        object.css('animation-timing-function', 'ease-in-out');
-        	    object.css('animation-iteration-count', '1');
-        		object.css('animation-fill-mode', 'forwards');
+                object.css('animation-duration', '200ms');
+                object.css('animation-timing-function', 'ease-in-out');
+                object.css('animation-iteration-count', '1');
+                object.css('animation-fill-mode', 'forwards');
                 object.css('animation-play-state', 'running');
                 setTimeout(function() {
                     object.css('display', 'none');
                 }, 200)
-		    };
+            };
         });
-            
+                    
         $(document).ajaxComplete(function() {
             $.fn.goodBye(loading);
         });
- 
+        
         var jsonData = $.ajax({
             method: 'GET',
             url: endpoint,
@@ -93,5 +94,5 @@
                 }
             })
         };
-    </script>
+</script>
 {% endblock %}

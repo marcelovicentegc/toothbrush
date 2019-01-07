@@ -16,4 +16,4 @@ class DocumentModel(models.Model):
         return reverse('result-detail', kwargs={'uid': self.uid})
         
     class Meta:
-        verbose_name_plural: 'documents'
+        verbose_name_plural = 'documents'
