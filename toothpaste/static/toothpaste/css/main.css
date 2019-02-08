@@ -75,13 +75,27 @@ body nav a {
   margin: 15px;
 }
 
-body nav a:hover {
+@media not all and (pointer: coarse) {
+  body nav a:hover {
+    border-bottom: 1px solid white;
+    -webkit-transition: .2s;
+    transition: .2s;
+  }
+}
+
+body nav a:active {
   border-bottom: 1px solid white;
   -webkit-transition: .2s;
   transition: .2s;
 }
 
-body a:hover {
+@media not all and (pointer: coarse) {
+  body a:hover {
+    cursor: pointer;
+  }
+}
+
+body a:active {
   cursor: pointer;
 }
 
@@ -140,7 +154,30 @@ body #toothpaste {
   padding: 1%;
 }
 
-body #toothpaste a img:hover {
+@media not all and (pointer: coarse) {
+  body #toothpaste a img:hover {
+    height: 130px;
+    width: 130px;
+    -webkit-transform: rotate(-8deg);
+            transform: rotate(-8deg);
+  }
+}
+
+@media only screen and (pointer: coarse) and (max-width: 767px) {
+  body #toothpaste a img:hover {
+    height: 85px;
+    width: 85px;
+  }
+}
+
+@media only screen and (pointer: coarse) and (max-width: 479px) {
+  body #toothpaste a img:hover {
+    height: 65px;
+    width: 65px;
+  }
+}
+
+body #toothpaste a img:active {
   height: 130px;
   width: 130px;
   -webkit-transform: rotate(-8deg);
@@ -148,14 +185,14 @@ body #toothpaste a img:hover {
 }
 
 @media only screen and (max-width: 767px) {
-  body #toothpaste a img:hover {
+  body #toothpaste a img:active {
     height: 85px;
     width: 85px;
   }
 }
 
 @media only screen and (max-width: 479px) {
-  body #toothpaste a img:hover {
+  body #toothpaste a img:active {
     height: 65px;
     width: 65px;
   }
