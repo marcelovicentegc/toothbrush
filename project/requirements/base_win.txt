@@ -4,4 +4,4 @@ djangorestframework==3.9.0
 pdfminer.six==20170720
 nltk==3.3
 langid==1.1.6
-python-magic==0.4.15
+python-magic-bin==0.4.14
