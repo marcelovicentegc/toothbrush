@@ -1,0 +1,16 @@
+certifi==2018.10.15
+chardet==3.0.4
+Django==2.1.2
+djangorestframework==3.9.0
+gunicorn==19.9.0
+langid==1.1.6
+nltk==3.3
+numpy==1.15.4
+pdfminer.six==20170720
+psycopg2-binary==2.7.5
+pycryptodome==3.7.0
+python-magic==0.4.15
+pytz==2018.7
+sentry-sdk==0.5.3
+six==1.11.0
+urllib3==1.24.1

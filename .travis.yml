@@ -1,0 +1,16 @@
+language: python
+
+python:
+  - "3.6.5"
+
+before_install:
+  - cd project/requirements
+
+install:
+  - pip install -r base.txt
+
+before_script:
+  - cd ../..
+
+script:
+  - python manage.py test

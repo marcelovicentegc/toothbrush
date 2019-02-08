@@ -5,5 +5,3 @@ __pycache__
 *.pyc
 *.scss
 *.css.map
-media
-analytics.txt
