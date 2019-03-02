@@ -1,20 +1,22 @@
-import os
 import io
+import json
+import os
+import zipfile
+from xml.etree.cElementTree import XML
+
+from django.conf import settings
+
+import langid
+import magic
+import nltk
+from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
 from pdfminer.converter import TextConverter
 from pdfminer.pdfinterp import PDFPageInterpreter, PDFResourceManager
 from pdfminer.pdfpage import PDFPage
-import nltk
-from nltk.tokenize import word_tokenize
-from nltk.corpus import stopwords
-import json
-import magic
-import langid
-from xml.etree.cElementTree import XML
-import zipfile
-from django.conf import settings
 
 
-class ToiletSink:
+class FrequencyDistributor:
     stp_source = ['\u0020', '\u0021', '\u0022', '\u0023', '\u0024', '\u0025', '\u0026', '\u0027', '\u0028', '\u0029', '\u002a', '\u002b', '\u002c', '\u002d', '\u002e', '\u002f', '\u0030' '\u0031', '\u0032', '\u0033', '\u0034', '\u0035', '\u0036', '\u0037', '\u0038', '\u0039', '\u003a', '\u003b', '\u003c', '\u003d', '\u003e', '\u003f', '\u0040', '\u0041', '\u0042', '\u0043', '\u0044', '\u0045', '\u0046', '\u0047', '\u0048', '\u0049', '\u004a', '\u004b', '\u004c', '\u004d', '\u004e', '\u004f', '\u0050', '\u0051', '\u0052', '\u0053', '\u0054', '\u0055', '\u0056', '\u0057', '\u0058', '\u0059', '\u005a', '\u005b', '\u005c', '\u005d', '\u005e', '\u005f', '\u0060', '\u0061', '\u0062', '\u0063', '\u0064', '\u0065', '\u0066', '\u0067', '\u0068', '\u0069', '\u006a', '\u006b', '\u006c', '\u006d', '\u006e', '\u006f', '\u0070', '\u0071', '\u0072', '\u0073', '\u0074', '\u0075', '\u0076', '\u0077', '\u0078', '\u0079', '\u007a', '\u007b', '\u007c', '\u007d', '\u007e']
     stp_universal = ["'", "''", '"','_', '¯', '´´', '``', ',', '.', ';', ':', '!', '?', '..', '...', '*', '@', '#', '$', '%', '&', '(', ')', '[', ']', '-', '--', '~', '+', '=', '/', '<', '>', '<<', '>>', '[(', '])', '}', '{', '{[(', ')]}', '\u2019', '\u03b8', '\u03c3', '\u00e9', '\u00ab', '\u00bb', '\u00f3', '\u00e7', '\u00e3', '\u2212', '\u201d', '\u201c']
     stp_en = stopwords.words('english')
@@ -35,69 +37,65 @@ class ToiletSink:
         language = langid.classify(f)[0]
         return language
 
-    # Excludes words that occur too frequently and eventual special characters
-    # for a specific language.
-    def brushing_teeth(self, text):
+    def language_filter(self, text):
         wordsFiltered = []
         language = self.identify_language(text)
         if language == 'en':
-            for w in text:
-                if w not in self.stp_en + self.stp_universal + self.stp_source:
-                    wordsFiltered.append(w)
+            for word in text:
+                if word not in self.stp_en + self.stp_universal + self.stp_source:
+                    wordsFiltered.append(word)
         elif language == 'pt':
-            for w in text:
-                if w not in self.stp_pt + self.stp_universal + self.stp_source:
-                    wordsFiltered.append(w)
+            for word in text:
+                if word not in self.stp_pt + self.stp_universal + self.stp_source:
+                    wordsFiltered.append(word)
         elif language == 'es':
-            for w in text:
-                if w not in self.stp_es + self.stp_universal + self.stp_source:
-                    wordsFiltered.append(w)
+            for word in text:
+                if word not in self.stp_es + self.stp_universal + self.stp_source:
+                    wordsFiltered.append(word)
         elif language == 'fr':
-            for w in text:
-                if w not in self.stp_fr + self.stp_universal + self.stp_source:
-                    wordsFiltered.append(w) 
+            for word in text:
+                if word not in self.stp_fr + self.stp_universal + self.stp_source:
+                    wordsFiltered.append(word) 
         elif language == 'de':
-            for w in text:
-                if w not in self.stp_de + self.stp_universal + self.stp_source:
-                    wordsFiltered.append(w)
+            for word in text:
+                if word not in self.stp_de + self.stp_universal + self.stp_source:
+                    wordsFiltered.append(word)
         else:
-            for w in text:
-                if w not in self.stp_universal + self.stp_source:
-                    wordsFiltered.append(w)
+            for word in text:
+                if word not in self.stp_universal + self.stp_source:
+                    wordsFiltered.append(word)
         return wordsFiltered
 
     def lexical_diversity(self, text):
-        textFiltered = self.brushing_teeth(text)
+        textFiltered = self.language_filter(text)
         result = (len(textFiltered) / len(set(textFiltered)))
         return result
 
     def word_weight(self, text, word):
-        textFiltered = self.brushing_teeth(text)
+        textFiltered = self.language_filter(text)
         wrd = [w for w in textFiltered]
         result = (wrd.count(word) / len(set(textFiltered)))
         return result
 
     def frequency_distribution(self, text, most_common_amount):
-        # In future: most_common_amount = user input
-        fdist = nltk.FreqDist(self.brushing_teeth(text))
+        fdist = nltk.FreqDist(self.language_filter(text))
         fdist_most_common = fdist.most_common(most_common_amount)
         return fdist_most_common
         
-    def jasonfy(self, python_object):
+    def jsonfy(self, python_object):
         js_on = json.dumps(python_object)
         return js_on
 
-    # Text extraction
     def pdf_text_extractor(self, text):
-        economist = PDFResourceManager()
+        manager = PDFResourceManager()
         stream = io.StringIO()
-        proselitic = TextConverter(economist,stream)
-        hermes = PDFPageInterpreter(economist, proselitic)
+        converter = TextConverter(manager,stream)
+        interpreter = PDFPageInterpreter(manager, converter)
         with open(text, 'rb') as f:
             for page in PDFPage.get_pages(f, caching=True, check_extractable=True):
-                hermes.process_page(page)
+                interpreter.process_page(page)
             text = stream.getvalue()
-        proselitic.close()
+        converter.close()
         stream.close()
         if text:
             return text
@@ -119,10 +117,10 @@ class ToiletSink:
 
     def txt_text_extractor(self, text):
         with open(text, 'r') as f:
-            substance = f.read()
-        return substance
+            content = f.read()
+        return content
 
-    def text_extractor(self, text):
+    def text_extractor_filter(self, text):
         file_type = magic.from_file(text, mime=True)
         if file_type == 'text/plain':
             return self.txt_text_extractor(text)
@@ -133,19 +131,9 @@ class ToiletSink:
         else:
             pass
     
-    # The last piece of pie
-    def final_cut(self, text):
+    def process(self, text):
         f = self.preprocess(text)
         f = self.frequency_distribution(f, 20)
         words = [i[0] for i in f]
         freqs = [i[1] for i in f]    
         return words, freqs
-
-
-    
-
-
-    
-
-
-
