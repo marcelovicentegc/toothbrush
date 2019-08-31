@@ -4,7 +4,7 @@ django>=2.1.9
 djangorestframework>=3.9.1
 gunicorn==19.9.0
 langid==1.1.6
-nltk==3.3
+nltk==3.4.5
 numpy==1.15.4
 pdfminer.six==20170720
 psycopg2-binary==2.7.5
