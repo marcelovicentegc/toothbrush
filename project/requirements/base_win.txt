@@ -2,6 +2,6 @@ django>=2.1.9
 psycopg2-binary==2.7.5
 djangorestframework>=3.9.1
 pdfminer.six==20170720
-nltk==3.3
+nltk==3.4.5
 langid==1.1.6
 python-magic-bin==0.4.14
