@@ -1,3 +1,5 @@
+[![Build Status](https://img.shields.io/travis/marcelovicentegc/Toothbrush.svg?branch=master&style=flat-square)](https://travis-ci.org/marcelovicentegc/Toothbrush)
+
 # Toothbrush
 
 A web-app that extracts the 20 most common words from .pdf, .doc and .txt files.
